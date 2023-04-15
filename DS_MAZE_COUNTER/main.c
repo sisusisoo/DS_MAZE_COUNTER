@@ -4,7 +4,7 @@
 #define MAX_SIZE 100
 #define MAZE_SIZE 11
 //경로 탐색을 x,y 에서 행령에서 행을 x 열을 y로 했을때 열을 먼저+1 -1 하고 행을 +1 -1 하는 방식으로 했습니다
-//수학적인 그래프로 x축을 먼저 움직였습니다.
+//수학적인 그래프로 x을 먼저 움직였습니다.
 //그결과 막다른길을 만나는건 한번뿐이고 돌아나오는 총횟수는 8번이 되었습니다. 
 int failC = 0;
 int flag = 0;
@@ -113,25 +113,25 @@ int block(int x, int y) {
     //  printf("조건 **%d**", (maze[x + 1][y] != '1' && maze[x+1][y] != '.'));// 왜 계속  0 이 나오는 걸까??
  
 
-        if (maze[x-1][y] != '1' && maze[x-1 ][y] != '.' && (x - 1) >= 0)
+        if (maze[x][y+1] != '1' && maze[x ][y+1] != '.')
         {
 
 
             return 1;
         }
-        else if (maze[x+1 ][y] != '1' && maze[x+1][y] != '.')
+        else if (maze[x ][y-1] != '1' && maze[x][y-1] != '.'&&(y - 1) >= 0)
         {
 
             return 1;
 
         }
-        else if (maze[x][y-1] != '1' && maze[x][y-1] != '.' && (y - 1) >= 0 )
+        else if (maze[x+1][y] != '1' && maze[x+1][y] != '.')
         {
 
             return 1;
 
         }
-        else if (maze[x][y+1] != '1' && maze[x][y+1] != '.' )
+        else if (maze[x-1][y] != '1' && maze[x-1][y] != '.' && (x - 1) >= 0)
         {
 
             return 1;
@@ -199,10 +199,10 @@ int main()
         maze[x][y] = '.'; // 방문한 곳을 표시
 
         // 이동 가능한 곳을 탐색
-        FindWay(&s, x-1, y);
-        FindWay(&s, x+1 , y);
-        FindWay(&s, x, y-1 );
         FindWay(&s, x, y+1);
+        FindWay(&s, x , y-1);
+        FindWay(&s, x+1, y );
+        FindWay(&s, x-1, y);
 
         if (is_empty(&s))
         {
@@ -218,7 +218,7 @@ int main()
         else if (block(x, y) != 0)//추후 삭제 검토---------------
         {
             m = peak(&s); // 현재 좌표를 변경
-            printf("(%d,%d) -> ", m.x, m.y);
+           // printf("(%d,%d) -> ", m.x, m.y);
         }
 
 
